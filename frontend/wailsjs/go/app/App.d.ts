@@ -32,7 +32,7 @@ export function DisconnectMqtt(arg1:number):Promise<void>;
 
 export function GetAllConnections():Promise<app.Connections>;
 
-export function GetAllSubscriptionsByConnectionId():Promise<{[key: number]: Array<models.Subscription>}>;
+export function GetAllSubscriptionsByConnectionId():Promise<Record<number, Array<models.Subscription>>>;
 
 export function GetEnvInfo():Promise<app.EnvInfo>;
 
