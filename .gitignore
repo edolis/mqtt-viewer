@@ -1,9 +1,1 @@
-build/bin
-node_modules
-frontend/dist
-*.db
-_dev_resources
-mqtt-viewer
-secrets.json
-.env
-.DS_STORE
+Nothing needs to be added to .gitignore since the changes only include source code files (.go files) and no build artifacts, dependencies, or temporary files.

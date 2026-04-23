@@ -1,6 +1,6 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#3953ff"
+    // "activityBar.background": "#3953ff"
   },
   "conventionalCommits.scopes": ["frontend", "backend"],
   "svelte.plugin.svelte.compilerWarnings": {
