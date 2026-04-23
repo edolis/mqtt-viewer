@@ -114,14 +114,14 @@ func (a *App) UpdateConnection(conn *models.Connection) error {
 		return res.Error
 	}
 
-	passwordHasChanged := conn.Password.Valid && conn.Password.String != "" && (!existingConnection.Password.Valid || conn.Password.String != existingConnection.Password.String)
+	passwordHasChanged := conn.Password != nil && *conn.Password != "" && (existingConnection.Password == nil || *conn.Password != *existingConnection.Password)
 	if passwordHasChanged {
 		// Encrypt the incoming password from the frontend
-		encryptedPassword, err := cryptography.EncryptBytesForMachine(env.MachineId, []byte(conn.Password.String))
+		encryptedPassword, err := cryptography.EncryptBytesForMachine(env.MachineId, []byte(*conn.Password))
 		if err != nil {
 			return err
 		}
-		conn.Password.String = string(encryptedPassword)
+		conn.Password = func() *string { s := string(encryptedPassword); return &s }()
 	}
 
 	updated := models.Connection{
