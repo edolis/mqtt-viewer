@@ -1,8 +1,6 @@
 module mqtt-viewer
 
-go 1.22
-
-toolchain go1.22.3
+go 1.19
 
 require (
 	ariga.io/atlas-provider-gorm v0.5.0
@@ -14,7 +12,6 @@ require (
 	github.com/mitchellh/panicwrap v1.0.0
 	github.com/wailsapp/wails/v2 v2.9.1
 	google.golang.org/protobuf v1.34.2
-	gopkg.in/guregu/null.v4 v4.0.0
 	gorm.io/gorm v1.25.12
 )
 

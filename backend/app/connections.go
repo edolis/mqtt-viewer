@@ -10,7 +10,6 @@ import (
 	"mqtt-viewer/backend/mqtt"
 	"mqtt-viewer/events"
 
-	"gopkg.in/guregu/null.v4"
 	"gorm.io/gorm"
 )
 
@@ -59,7 +58,7 @@ func (a *App) NewConnection() (*Connection, error) {
 		HasCustomClientId: &hasCustomClientId,
 		IsProtoEnabled:    &isProtoEnabled,
 		IsCertsEnabled:    &isCertsEnabled,
-		CustomIconSeed:    null.StringFrom(""),
+		CustomIconSeed:    nil,
 		Subscriptions: []models.Subscription{
 			{
 				Topic: "#",
