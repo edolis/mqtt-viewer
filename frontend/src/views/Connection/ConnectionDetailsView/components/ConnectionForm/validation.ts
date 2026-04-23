@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const VALID_DOMAIN_REGEX = new RegExp(
-  "^(?!-)[A-Za-z0-9-]{1,63}(?:(?<!-)\\.(?!-)[A-Za-z0-9-]{1,63})*(?<!-)$"
+const VALID_HOSTNAME_REGEX = new RegExp(
+  "^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$|^[A-Za-z0-9]+$"
 );
 
 export const ConnectionFormValidationSchema = z
@@ -23,7 +23,7 @@ export const ConnectionFormValidationSchema = z
     host: z
       .string()
       .min(1, { message: "Host cannot be empty" })
-      .regex(VALID_DOMAIN_REGEX, "Please enter a valid host"),
+      .regex(VALID_HOSTNAME_REGEX, "Please enter a valid host"),
     port: z
       .number({
         required_error: "Port must be a number",
