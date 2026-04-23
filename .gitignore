@@ -1,44 +1,45 @@
 ```
-# Dependencies
-node_modules/
-
-# Python
-__pycache__/
+# Compiled and build artifacts
 *.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
+__pycache__/
+*.o
+*.obj
+*.class
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Dependencies
 .venv/
-.ENV
-.ENV.*
-.env
-.env.*
-requirements.txt.bak
+venv/
+node_modules/
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
 
-# Logs
+# Logs and temp files
 *.log
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Editor
-.vscode/
-.idea/
+*.tmp
 *.swp
 *.swo
 
-# Build outputs
-dist/
-build/
-target/
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage
 coverage/
 htmlcov/
 .coverage
@@ -66,14 +67,4 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
-# Environment variables
-.env
-.env.local
-.env.*
-
-# Cache directories
-.mypy_cache/
-.pytest_cache/
-.gradle/
 ```
