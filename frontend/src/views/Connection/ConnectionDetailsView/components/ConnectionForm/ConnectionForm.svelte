@@ -55,8 +55,27 @@
       onSubmit: (values) => {},
       initialValues: {
         customIconSeed,
+        name: name || "",
+        protocol: protocol || "mqtt",
+        websocketPath: websocketPath || "",
+        mqttVersion: mqttVersion || "5",
+        host: host || "",
+        port: port || 1883,
+        username: username || "",
+        password: password || "",
+        hasCustomClientId: hasCustomClientId || false,
+        clientId: clientId || "",
+        isCertsEnabled: isCertsEnabled || false,
+        certCa: certCa || "",
+        certClient: certClient || "",
+        certClientKey: certClientKey || "",
+        skipCertVerification: skipCertVerification || false,
+        isProtoEnabled: isProtoEnabled || false,
       },
     });
+
+  // Debug logging for form state
+  $: console.log("Form isValid:", $isValid, "errors:", $errors, "data:", $data);
 
   const submit = (values: typeof $data) => {
     try {
@@ -156,8 +175,9 @@
         disabled={isAllFieldsDisabled}
         name="name"
         label="Name"
-        value={name}
+        value={$data.name ?? name}
         errorMessage={$errors.name?.[0]}
+        onChange={(value) => setFields(`name`, value ?? "", true)}
       />
     </div>
     <div class="w-1/4">
@@ -198,8 +218,9 @@
           disabled={isAllFieldsDisabled}
           name="host"
           label="Host"
-          value={host}
+          value={$data.host ?? host}
           errorMessage={$errors.host?.[0]}
+          onChange={(value) => setFields(`host`, value ?? "", true)}
         />
       </div>
     </div>
@@ -210,8 +231,9 @@
         name="port"
         type="number"
         label="Port"
-        value={`${port}`}
+        value={$data.port ? `${$data.port}` : `${port}`}
         hasError={!!$errors.port?.[0]}
+        onChange={(value) => setFields(`port`, value ? parseInt(value) : 0, true)}
       />
     </div>
     {#if !!$errors.port?.[0]}
@@ -227,7 +249,8 @@
           disabled={isAllFieldsDisabled}
           name="websocketPath"
           label="Websocket Path"
-          value={websocketPath}
+          value={$data.websocketPath ?? websocketPath}
+          onChange={(value) => setFields(`websocketPath`, value ?? "", true)}
         />
       </div>
     </div>
@@ -238,7 +261,8 @@
         disabled={isAllFieldsDisabled}
         name="username"
         label="Username"
-        value={username}
+        value={$data.username ?? username}
+        onChange={(value) => setFields(`username`, value ?? "", true)}
       />
     </div>
     <div class="w-1/2">
@@ -247,7 +271,8 @@
         type="password"
         name="password"
         label="Password"
-        value={password}
+        value={$data.password ?? password}
+        onChange={(value) => setFields(`password`, value ?? "", true)}
       />
     </div>
   </div>
