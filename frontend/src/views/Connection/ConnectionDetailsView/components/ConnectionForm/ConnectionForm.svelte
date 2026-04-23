@@ -54,7 +54,24 @@
       extend: [validator({ schema: ConnectionFormValidationSchema })],
       onSubmit: (values) => {},
       initialValues: {
+        name,
+        protocol,
+        websocketPath,
+        mqttVersion,
+        host,
+        port,
+        username,
+        password,
+        hasCustomClientId,
+        clientId,
+        isCertsEnabled,
+        certCa,
+        certClient,
+        certClientKey,
         customIconSeed,
+        skipCertVerification,
+        isProtoEnabled,
+        resetDataOnConnect: false,
       },
     });
 
@@ -156,7 +173,7 @@
         disabled={isAllFieldsDisabled}
         name="name"
         label="Name"
-        value={name}
+        bind:value={$data.name}
         errorMessage={$errors.name?.[0]}
       />
     </div>
@@ -165,7 +182,7 @@
         disabled={isAllFieldsDisabled}
         onChange={(value) => setFields(`mqttVersion`, value ?? "", true)}
         name={`mqttVersion`}
-        defaultValue={mqttVersion}
+        value={$data.mqttVersion}
         label={`Version`}
         getOptionLabel={(option) => {
           if (option === "3") {
@@ -187,7 +204,7 @@
             setFields(`protocol`, newValue ?? "", true);
           }}
           name={`protocol`}
-          defaultValue={protocol}
+          value={$data.protocol}
           label={`Protocol`}
           getOptionLabel={(option) => `${option}`}
           options={["mqtt", "mqtts", "ws", "wss"]}
@@ -198,7 +215,7 @@
           disabled={isAllFieldsDisabled}
           name="host"
           label="Host"
-          value={host}
+          bind:value={$data.host}
           errorMessage={$errors.host?.[0]}
         />
       </div>
@@ -210,7 +227,7 @@
         name="port"
         type="number"
         label="Port"
-        value={`${port}`}
+        bind:value={$data.port}
         hasError={!!$errors.port?.[0]}
       />
     </div>
@@ -227,7 +244,7 @@
           disabled={isAllFieldsDisabled}
           name="websocketPath"
           label="Websocket Path"
-          value={websocketPath}
+          bind:value={$data.websocketPath}
         />
       </div>
     </div>
@@ -238,7 +255,7 @@
         disabled={isAllFieldsDisabled}
         name="username"
         label="Username"
-        value={username}
+        bind:value={$data.username}
       />
     </div>
     <div class="w-1/2">
@@ -247,7 +264,7 @@
         type="password"
         name="password"
         label="Password"
-        value={password}
+        bind:value={$data.password}
       />
     </div>
   </div>
@@ -259,14 +276,14 @@
     }}
     name="hasCustomClientId"
     label="Use custom Client ID"
-    defaultChecked={hasCustomClientId}
+    checked={$data.hasCustomClientId}
   />
   {#if $data.hasCustomClientId}
     <BaseInput
       disabled={isAllFieldsDisabled}
       name="clientId"
       label="Client ID"
-      value={clientId}
+      bind:value={$data.clientId}
       errorMessage={$errors.clientId?.[0]}
     />
   {/if}
@@ -280,7 +297,7 @@
         onChange={(checked) => setFields(`isCertsEnabled`, checked, true)}
         name="isCertsEnabled"
         label="Use custom certificates"
-        defaultChecked={isCertsEnabled}
+        checked={$data.isCertsEnabled}
       />
     </div>
     <div style:display={$data.isCertsEnabled && isSslTls ? undefined : "none"}>
@@ -288,7 +305,7 @@
         onChange={(checked) => setFields(`skipCertVerification`, checked, true)}
         name="skipCertVerification"
         label="Skip certificate validation (insecure)"
-        defaultChecked={skipCertVerification}
+        checked={$data.skipCertVerification}
       />
     </div>
   </div>
@@ -301,7 +318,7 @@
           variant="certificate"
           actionLabel="Add CA Certificate"
           valueLabel="CA"
-          defaultValue={certCa}
+          value={$data.certCa}
           onFileChosen={(filePath) => setFields("certCa", filePath, true)}
           onFileRemoved={() => {
             setFields("certCa", "", true);
@@ -312,7 +329,7 @@
           variant="certificate"
           actionLabel="Add Client Certificate"
           valueLabel="Client"
-          defaultValue={certClient}
+          value={$data.certClient}
           onFileChosen={(filePath) => setFields("certClient", filePath, true)}
           onFileRemoved={() => {
             setFields("certClient", "", true);
@@ -323,7 +340,7 @@
           variant="certificate"
           actionLabel="Add Client Key"
           valueLabel="Client Key"
-          defaultValue={certClientKey}
+          value={$data.certClientKey}
           onFileChosen={(filePath) =>
             setFields("certClientKey", filePath, true)}
           onFileRemoved={() => {
@@ -338,7 +355,7 @@
     onChange={(checked) => setFields(`isProtoEnabled`, checked, true)}
     name="isProtoEnabled"
     label="Automatically encode/decode Sparkplug messages"
-    defaultChecked={isProtoEnabled}
+    checked={$data.isProtoEnabled}
   />
 </form>
 <ConfirmDeleteConnectionDialog
